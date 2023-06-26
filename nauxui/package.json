@@ -1,0 +1,43 @@
+{
+  "name": "nauxui",
+  "version": "1.0.0",
+  "description": "luv from pLap to tXun",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./src/index.js localhost 8080",
+    "watch": "node-sass --watch src/resources/scss/ --output src/public/css/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "luv",
+    "healing",
+    "love",
+    "count",
+    "down"
+  ],
+  "author": "pLap",
+  "license": "ISC",
+  "lint-staged": {
+    "src/**/*.{js,json,scss}": "your-cmd"
+  },
+  "husky": {
+    "hooks": {
+      "pre-comit": "lint-staged"
+    }
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.0.7",
+    "method-override": "^3.0.0",
+    "mongoose": "^7.2.4"
+  },
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2",
+    "morgan": "^1.10.0",
+    "node-sass": "^9.0.0",
+    "nodemon": "^2.0.22",
+    "prettier": "^2.8.8"
+  }
+}
