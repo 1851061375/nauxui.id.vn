@@ -4,7 +4,8 @@
   "description": "luv from pLap to tXun",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./src/index.js localhost 8080",
+    "start": "node ./src/index.js",
+    "start:dev": "nodemon ./src/index.js localhost 8080",
     "watch": "node-sass --watch src/resources/scss/ --output src/public/css/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

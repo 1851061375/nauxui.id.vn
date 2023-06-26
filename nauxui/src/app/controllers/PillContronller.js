@@ -30,6 +30,8 @@ class PillController {
   // [GET] /create
   async create(req, res, next) {
     const boxs = await Box.find({})
+    console.log(boxs);
+
     res.render('healing-love/pill/create', {
       boxs: multipleToObject(boxs),
       keys: CONSTAN.keys
