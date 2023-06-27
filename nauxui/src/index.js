@@ -1,5 +1,6 @@
 const express = require('express');
-const morgan = require('morgan');
+//dev
+//const morgan = require('morgan');
 const handlebars = require('express-handlebars');
 const methodOverride = require('method-override')
 const path = require('path');
@@ -23,7 +24,7 @@ app.use(express.urlencoded())
 app.use(methodOverride('_method'))
 
 // HTTP logger
-app.use(morgan('combined'))
+//app.use(morgan('combined'))
 
 // Template engine
 app.engine(
