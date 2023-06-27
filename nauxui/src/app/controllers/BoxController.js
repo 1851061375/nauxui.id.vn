@@ -5,15 +5,22 @@ const { multipleToObject, singleToObject } = require('../../ultils/mongoose')
 class BoxController {
 
   // [GET]
-  index(req, res, next) {
+  async index(req, res, next) {
     // Box.find({})
     //   .then(boxs => res.render('healing-love/box', {
     //     boxs: multipleToObject(boxs)
     //   }))
     //   .catch(next)
-    Box.find({})
-      .then(boxs => res.json(boxs))
-      .catch(next)
+
+    try {
+      const boxs = await Box.find({})
+      res.json(boxs)
+    } catch (err) {
+      console.error(err);
+    }
+    // Box.find({})
+    //   .then(boxs => res.json(boxs))
+    //   .catch(next)
   }
 
   // [GET] /active
