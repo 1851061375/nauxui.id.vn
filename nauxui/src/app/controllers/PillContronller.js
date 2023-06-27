@@ -5,33 +5,47 @@ const CONSTAN = require('../../ultils/constan')
 
 class PillController {
   // [GET] /Pill
-  index(req, res, next) {
-    Pill.find({})
-      .then(pills => res.render('healing-love/pill', {
+  async index(req, res, next) {
+    try {
+      const pills = await Pill.find({})
+      res.json(pills)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  // [GET] /Pill
+  async indexView(req, res, next) {
+    try {
+      const pills = await Pill.find({})
+      res.render('healing-love/pill', {
         pills: multipleToObject(pills)
-      }))
-      .catch(next)
+      })
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   // [GET] /Pill/:box/:key
-  boxKey(req, res, next) {
+  async boxKey(req, res, next) {
     let filter = {
       box: req.params.slug.split('-')[0],
       key: req.params.slug.split('-')[1],
       used: false
     }
     if (filter.box && filter.key) {
-      Pill.findOne(filter)
-      .then(pill => res.json(pill))
-      .catch(next)
+      try {
+        const pill = await Pill.findOne(filter)
+        res.json(pill)
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 
   // [GET] /create
   async create(req, res, next) {
     const boxs = await Box.find({})
-    console.log(boxs);
-
     res.render('healing-love/pill/create', {
       boxs: multipleToObject(boxs),
       keys: CONSTAN.keys
@@ -39,33 +53,49 @@ class PillController {
   }
 
   // [POST] /store
-  store(req, res, next) {
+  async store(req, res, next) {
     const pill = new Pill(req.body)
-    Pill.create(pill)
-      .then(() => res.redirect('/pill'))
+    try {
+      await Pill.create(pill)
+      res.json(pill)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   // [GET] /edit/:id
   async edit(req, res, next) {
-    const boxs = await Box.find({})
-    Pill.findById(req.params.id)
-      .then(pill => res.render('healing-love/pill/edit', {
+    try {
+      const boxs = await Box.find({})
+      const pill = await Pill.findById(req.params.id)
+      res.render('healing-love/pill/edit', {
         pill: singleToObject(pill),
         boxs: multipleToObject(boxs),
         keys: CONSTAN.keys
-      }))
-      .catch(next)
+      })
+    } catch (err) {
+      console.log(err)
+    }
+
   }
   // [PUT] /:id
-  update(req, res, next) {
-    Pill.updateOne({ _id: req.params.id }, req.body)
-    .then(() => res.redirect('/pill'))
+  async update(req, res, next) {
+    try {
+      const pill = await Pill.updateOne({ _id: req.params.id }, req.body)
+      res.json(pill)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   // [DELETE] /:id
-  destroy(req, res, next) {
-    Pill.deleteOne({ _id: req.params.id })
-    .then(() => res.redirect('/pill'))
+  async destroy(req, res, next) {
+    try {
+      const pill =  Pill.deleteOne({ _id: req.params.id })
+      res.json(pill)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
 }

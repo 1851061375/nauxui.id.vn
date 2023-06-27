@@ -16,18 +16,18 @@ class BoxController {
       const boxs = await Box.find({})
       res.json(boxs)
     } catch (err) {
-      console.error(err);
+      console.error(err)
     }
-    // Box.find({})
-    //   .then(boxs => res.json(boxs))
-    //   .catch(next)
   }
 
   // [GET] /active
-  active(req, res, next) {
-    Box.findOne({active: req.params.active})
-      .then(boxs => res.json(boxs))
-      .catch(next)
+  async active(req, res, next) {
+    try {
+      const box = await Box.findOne({active: req.params.active})
+      res.json(box)
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   // [GET] /create
@@ -36,24 +36,37 @@ class BoxController {
   }
 
   // [GET] /edit/:id
-  edit(req, res, next) {
-    Box.findById(req.params.id)
-      .then(boxs => res.render('healing-love/box/edit', {
-        box: singleToObject(boxs)
-      }))
-      .catch(next)
+  async edit(req, res, next) {
+    try {
+      const box = await Box.findById(req.params.id)
+      res.render('healing-love/box/edit', {
+        box: singleToObject(box)
+      })
+    } catch (err) {
+      console.error(err);
+    }
+
   }
   // [PUT] /:id
-  update(req, res, next) {
-    Box.updateOne({ _id: req.params.id }, req.body)
-      .then(() => res.json(req.body))
+  async update(req, res, next) {
+    try {
+      const box = await Box.updateOne({ _id: req.params.id }, req.body)
+      res.json(box)
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   // [POST] /store
-  store(req, res, next) {
-    const box = new Box(req.body)
-    Box.create(box)
-      .then(() => res.redirect('/box'))
+  async store(req, res, next) {
+    try {
+      const box = new Box(req.body)
+      await Box.create(box)
+      res.redirect('/box')
+    }
+    catch(err) {
+      console.log(err)
+    }
   }
 }
 
