@@ -4,7 +4,7 @@ const handlebars = require('express-handlebars');
 const methodOverride = require('method-override')
 const path = require('path');
 const app = express();
-const port = 8080;
+const port = process.env.PORT;
 
 const route = require('./routes');
 const db = require('./config/db')
