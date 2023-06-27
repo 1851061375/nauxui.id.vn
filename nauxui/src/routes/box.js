@@ -3,7 +3,7 @@ const router = express.Router();
 
 const boxController = require('../app/controllers/BoxController');
 
-//router.get('/:slug', boxController.show);
+router.get('/view', boxController.indexView);
 router.put('/:id', boxController.update);
 router.post('/store', boxController.store);
 router.get('/edit/:id', boxController.edit);

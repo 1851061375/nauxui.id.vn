@@ -6,11 +6,15 @@ class BoxController {
 
   // [GET]
   async index(req, res, next) {
-    // Box.find({})
-    //   .then(boxs => res.render('healing-love/box', {
-    //     boxs: multipleToObject(boxs)
-    //   }))
-    //   .catch(next)
+    try {
+      const boxs = await Box.find({})
+      res.json(boxs)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  async indexView(req, res, next) {
 
     try {
       const boxs = await Box.find({})
