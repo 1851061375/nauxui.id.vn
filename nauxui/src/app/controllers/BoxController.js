@@ -14,7 +14,10 @@ class BoxController {
 
     try {
       const boxs = await Box.find({})
-      res.json(boxs)
+      res.render('healing-love/box', {
+           boxs: multipleToObject(boxs)
+      })
+      //res.json(boxs)
     } catch (err) {
       console.error(err)
     }
@@ -50,8 +53,8 @@ class BoxController {
   // [PUT] /:id
   async update(req, res, next) {
     try {
-      const box = await Box.updateOne({ _id: req.params.id }, req.body)
-      res.json(box)
+      await Box.updateOne({ _id: req.params.id }, req.body)
+      res.redirect('/box')
     } catch (err) {
       console.error(err);
     }

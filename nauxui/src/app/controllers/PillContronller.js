@@ -14,7 +14,7 @@ class PillController {
     }
   }
 
-  // [GET] /Pill
+  // [GET] /Pill/view
   async indexView(req, res, next) {
     try {
       const pills = await Pill.find({})
@@ -22,7 +22,7 @@ class PillController {
         pills: multipleToObject(pills)
       })
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 
@@ -45,11 +45,16 @@ class PillController {
 
   // [GET] /create
   async create(req, res, next) {
-    const boxs = await Box.find({})
-    res.render('healing-love/pill/create', {
-      boxs: multipleToObject(boxs),
-      keys: CONSTAN.keys
-    })
+    try {
+      const boxs = await Box.find({})
+      res.render('healing-love/pill/create', {
+        boxs: multipleToObject(boxs),
+        keys: CONSTAN.keys
+      })
+    } catch (err) {
+      console.log(err)
+    }
+
   }
 
   // [POST] /store
@@ -57,6 +62,10 @@ class PillController {
     const pill = new Pill(req.body)
     try {
       await Pill.create(pill)
+      // const pills = await pillByBox(pill.box)
+      // if (pills.length == 0) {
+      //   await Box.updateOne({ _id: pill.box }, {empty: false})
+      // }
       res.json(pill)
     } catch (err) {
       console.log(err)
@@ -91,11 +100,21 @@ class PillController {
   // [DELETE] /:id
   async destroy(req, res, next) {
     try {
-      const pill =  Pill.deleteOne({ _id: req.params.id })
+      const pill = Pill.deleteOne({ _id: req.params.id })
       res.json(pill)
     } catch (err) {
       console.log(err)
     }
+  }
+
+  async pillByBox(box) {
+    let pills = []
+    try {
+      pills = await Pill.find({box: box})
+    } catch (err) {
+      
+    }
+    return pills
   }
 
 }
