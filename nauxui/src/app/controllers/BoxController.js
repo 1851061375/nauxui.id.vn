@@ -15,7 +15,6 @@ class BoxController {
   }
 
   async indexView(req, res, next) {
-
     try {
       const boxs = await Box.find({})
       res.render('healing-love/box', {
@@ -58,7 +57,7 @@ class BoxController {
   async update(req, res, next) {
     try {
       await Box.updateOne({ _id: req.params.id }, req.body)
-      res.redirect('/box')
+      res.json(req.body)
     } catch (err) {
       console.error(err);
     }
@@ -69,7 +68,7 @@ class BoxController {
     try {
       const box = new Box(req.body)
       await Box.create(box)
-      res.redirect('/box')
+      res.json(req.box)
     }
     catch(err) {
       console.log(err)
