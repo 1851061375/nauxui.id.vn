@@ -26,7 +26,7 @@ class PillController {
     }
   }
 
-  // [GET] /Pill/:box/:key
+  // [GET] /Pill/boxkey/box-key
   async boxKey(req, res, next) {
     let filter = {
       box: req.params.slug.split('-')[0],
@@ -42,6 +42,7 @@ class PillController {
       }
     }
   }
+
 
   // [GET] /create
   async create(req, res, next) {
@@ -90,8 +91,8 @@ class PillController {
   // [PUT] /:id
   async update(req, res, next) {
     try {
-      const pill = await Pill.updateOne({ _id: req.params.id }, req.body)
-      res.json(pill)
+      await Pill.updateOne({ _id: req.params.id }, req.body)
+      res.json(req.body)
     } catch (err) {
       console.log(err)
     }
