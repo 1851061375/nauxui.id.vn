@@ -11,7 +11,7 @@ router.delete('/:id', pillController.destroy);
 router.get('/edit/:id', pillController.edit);
 router.put('/:id', pillController.update);
 
-
+router.get('/count', pillController.count);
 router.get('/', pillController.index);
 
 module.exports = router;

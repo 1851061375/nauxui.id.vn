@@ -14,6 +14,11 @@ class PillController {
     }
   }
 
+  // [GET] /count
+  async count(req, res, next) {
+    
+  }
+
   // [GET] /Pill/view
   async indexView(req, res, next) {
     try {
@@ -111,13 +116,14 @@ class PillController {
   async pillByBox(box) {
     let pills = []
     try {
-      pills = await Pill.find({box: box})
+      pills = await Pill.find({ box: box })
     } catch (err) {
-      
+
     }
     return pills
   }
 
 }
+
 
 module.exports = new PillController();
