@@ -34,8 +34,7 @@ class BoxController {
             pillCounts.set(key, 0)
           }
         }
-        console.log(`Box ${box._id}:`)
-        tmp.box = box._id
+        tmp.key = box._id
         tmp.order = box.order
         for (const [key, count] of pillCounts) {
           tmp[key] = count
